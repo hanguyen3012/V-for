@@ -52,32 +52,25 @@ export default {
   //         phone: "",
   //         email: "",
   //       },
-
   //       showModalEdit: true,
   //       users: [],
   //     };
   //   },
   props: {
-    username: {
-      type: String,
-      default: "",
+    itemEdit:{
+      type: Object,
+      default: null,
     },
-    address: {
-      type: String,
-      default: "",
-    },
-    birthday: {
-      type: String,
-      default: "",
-    },
-    phone: {
-      type: String,
-      default: "",
-    },
-    email: {
-      type: String,
-      default: "",
-    },
+
+  },
+  watch:{
+    itemEdit(){
+      if(this.itemEdit){
+        this.user=Object.assign({},this.itemEdit)
+      }else{
+        this.user={}
+      }
+    }
   },
   methods: {
     editUser() {
@@ -109,7 +102,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 .add-form {
   border-collapse: collapse;
   /* margin-left: 20%; */
@@ -129,7 +121,6 @@ input {
 h2 {
   text-align: center;
 }
-
 .form-group {
   margin-left: 50px;
 }

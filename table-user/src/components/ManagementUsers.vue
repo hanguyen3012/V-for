@@ -28,24 +28,29 @@
               <button
                 type="button"
                 class="btn btn1"
-                @click="showModalEdit = true"
+                @click="
+                  showModalEdit = true;
+                  clickEdit(user);
+                "
               >
                 Edit
               </button>
-              <button class="btn btn2" @click="deleteUser">Delete</button>
+              <button class="btn btn2" @click="clickDelete(user)">
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <AddNewUser v-if="showModal" />
-      <EditUser v-if="showModalEdit" users="users" userID="user.id" />
+      <AddNewUser v-if="showModal" @save="clickSave" />
+      <EditUser v-if="showModalEdit" :itemEdit="person" />
     </div>
     <div v-else>Add the new user to view list users</div>
   </div>
 </template>
 
 <script>
-// import UserDataService from "../services/UserDataService";
+
 import AddNewUser from "./AddNewUser.vue";
 import EditUser from "./EditUser.vue";
 
@@ -57,8 +62,10 @@ export default {
   },
   data() {
     return {
-      showModal: false,
+
       showModalEdit: false,
+      showModal: false,
+
       users: [
         {
           id: 1,
@@ -71,11 +78,38 @@ export default {
       ],
     };
   },
-  // methods: {
-  //   deleteUser() {
-  //     UserDataService.delete(this.user.id, this.user);
-  //   },
-  // },
+  methods: {
+    clickSave(itemSave) {
+      let index = this.users.findIndex((c) => c.id === itemSave.id);
+      if (index >= 0) {
+        this.users.splice(index,1,itemSave);
+      } else {
+        let max = 0;
+        let newId = 0;
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].id > max) {
+            max = this.users[i].id;
+          }
+        }
+        newId = max + 1;
+        itemSave.id = newId;
+        this.users.push(itemSave);
+      }
+      return;
+    },
+
+    clickDelete(itemDelete) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (itemDelete.id === this.users[i].id) {
+          this.users.splice(i, 1);
+        }
+      }
+    },
+    clickEdit(itemEdit) {
+      console.log(itemEdit);
+      this.person = itemEdit;
+    },
+  },
 };
 </script>
 

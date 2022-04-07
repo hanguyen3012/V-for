@@ -4,7 +4,7 @@
       <!-- <div v-if="!submitted"> -->
       <h2>Add new user</h2>
       <hr />
-      <form v-on:submit.prevent="addNewUser" class="form">
+      <form class="form">
         <!-- <input /> -->
         <div class="form-group">
           <label for="fname">Name:</label><br />
@@ -31,7 +31,13 @@
             Cancel
           </button>
 
-          <button class="btn2" type="submit">Add</button>
+          <b-button
+            @click="addNewUser"
+            class="btn2"
+            variant="danger"
+            type="submit"
+            >Add</b-button
+          >
         </div>
       </form>
     </div>
@@ -45,7 +51,7 @@ export default {
   data() {
     return {
       user: {
-        id: null,
+        id: Math.floor(Math.random() * 10000),
         name: "",
         address: "",
         birthday: "",
@@ -54,22 +60,36 @@ export default {
       },
 
       showModal: true,
-      users: []
+      users: [],
     };
   },
   methods: {
-    addNewUser(){
-        var user = this.user;
-        this.users.push({
-            id: Math.random().toString().split('.')[1],
-                   name: user,
-        address: user.address,
-        birthday: user.birthday,
-        phone: user.phone,
-        email: user.email,
+    addNewUser() {
+      this.$emit("save", this.user);
+      this.user = {
+        id: Math.floor(Math.random() * 10000),
+        name: "",
+        address: "",
+        birthday: "",
+        phone: "",
+        email: "",
+      };
+    },
+  },
+    props: {
+    itemEdit: {
+      type: Object,
+      default: null,
+    },
 
-        });
-        // router.push('/')
+  },
+  watch:{
+    itemEdit(){
+      if(this.itemEdit){
+        this.user=Object.assign({},this.itemEdit)
+      }else{
+        this.user={}
+      }
     }
   },
 };
