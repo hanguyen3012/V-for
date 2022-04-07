@@ -1,5 +1,5 @@
 <template>
-  <div id="hello">
+  <div>
     <table>
       <thead>
         <tr class="title">
@@ -21,7 +21,8 @@
           <td class="col">{{ user.phone }}</td>
           <td class="col">{{ user.email }}</td>
           <td>
-            <!-- <font-awesome-icon icon="fa-solid faBicycle" /> -->
+            <button class="button1">Edit</button>
+            <button class="button2">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -31,7 +32,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "ManagementUsers",
   data() {
     return {
       users: [
@@ -119,6 +120,7 @@ table {
   border-collapse: collapse;
   width: 80%;
   margin-left: 10%;
+  border: solid black 1px;
 }
 .title {
   background-color: aqua;
@@ -128,5 +130,22 @@ th,
 td {
   text-align: left;
   padding: 8px;
+}
+button {
+  margin: 5px;
+}
+.button1 {
+  background: rgb(48, 48, 234);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 7px;
+}
+.button2 {
+  background: rgb(179, 61, 19);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 7px;
 }
 </style>

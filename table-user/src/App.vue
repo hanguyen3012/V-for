@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld />
+  <ManagementUsers />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import ManagementUsers from "./components/ManagementUsers.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    ManagementUsers,
   },
 };
 </script>
