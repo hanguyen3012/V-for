@@ -1,5 +1,8 @@
 <template>
-  <ManagementUsers />
+<div id="app">
+  <ManagementUsers/>
+</div>
+
 </template>
 
 <script>
