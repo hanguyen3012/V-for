@@ -5,13 +5,20 @@
       <hr />
       <form v-on:submit.prevent="addNewUser" class="form">
         <div class="form-group">
-          <input type="text" placeholder="Enter name" v-model="user.name" />
+          <input
+            type="text"
+            placeholder="Enter name"
+            v-model.trim="$v.user.name.$model"
+          />
+          <!-- <div v-if="!$v.user.name.required" class="invalid-feed">
+            The name field is required.
+          </div> -->
         </div>
         <div class="form-group">
           <input
             type="text"
             placeholder="Enter address"
-            v-model="user.address"
+            v-model.trim="user.address"
           />
         </div>
         <div class="form-group">
@@ -43,8 +50,18 @@
 </template>
 
 <script>
+import useVuelidate from "@vuelidate/core";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from "vuelidate/lib/validators";
 export default {
   name: "AddNewUser",
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       user: {
@@ -56,10 +73,25 @@ export default {
         email: "",
       },
       users: [],
+      validations() {
+        return {
+          user: {
+            name: { required },
+            address: { required },
+            birthday: { required },
+            phone: { required, min: minLength(10), max: maxLength(11) },
+            email: { required, email },
+          },
+        };
+      },
     };
   },
   methods: {
     addNewUser() {
+      this.$v.$touch();
+      if (this.$v.$pendding || this.$v.$error) return;
+      alert("Data submit");
+
       this.$emit("save", this.user);
       this.$emit("hideModalAdd");
       this.user = {

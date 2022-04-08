@@ -1,30 +1,25 @@
 <template>
   <div class="container">
     <div class="add-form">
-      <!-- <div v-if="!submitted"> -->
       <h2>Edit user</h2>
       <hr />
       <div class="form">
-        <!-- <input /> -->
         <div class="form-group">
-          <input type="text" v-model="user.name" />
+          <input type="text" v-model.trim="user.name" />
         </div>
         <div class="form-group">
-          <input type="text" v-model="user.address" />
+          <input type="text" v-model.trim="user.address" />
         </div>
         <div class="form-group">
-          <input type="text" v-model="user.birthday" />
+          <input type="text" v-model.trim="user.birthday" />
         </div>
         <div class="form-group">
-          <input type="text" v-model="user.phone" />
+          <input type="text" v-model.trim="user.phone" />
         </div>
         <div class="form-group">
-          <input type="text" v-model="user.email" />
+          <input type="text" v-model.trim="user.email" />
         </div>
         <div class="form-btn">
-          <!-- <button class="btn-cancel" type="submit" @click="hideModal">
-            Cancel
-          </button> -->
           <button class="btn-update" @click="onEditUser()">Update</button>
         </div>
       </div>
@@ -33,7 +28,6 @@
 </template>
 
 <script>
-// import UserDataService from "../services/UserDataService";
 export default {
   name: "EditUser",
   data() {
@@ -61,17 +55,11 @@ export default {
     this.user = { ...this.itemEdit };
   },
   methods: {
-    editUser() {
-      // var user = this.user;
-    },
+    editUser() {},
     onEditUser() {
       this.$emit("onEditUser", this.user);
       this.$emit("hideModalEdit");
-      console.log(this.user);
     },
-    // hideModal() {
-    //   this.$emit("hideModalEdit");
-    // },
   },
 };
 </script>
