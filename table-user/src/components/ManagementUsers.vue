@@ -107,10 +107,8 @@ export default {
     clickEdit(itemEdit) {
       this.showModalEdit = true;
       this.person = itemEdit;
-      console.log(this.person);
     },
     userEdited(itemEdited) {
-      console.log("ha", itemEdited);
       for (let i = 0; i < this.users.length; i++) {
         if (itemEdited.id === this.users[i].id) {
           this.users[i] = itemEdited;
@@ -122,7 +120,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 table {
   border-collapse: collapse;

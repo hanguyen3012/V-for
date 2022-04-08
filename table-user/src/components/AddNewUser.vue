@@ -1,11 +1,9 @@
 <template>
   <div class="container">
     <div class="add-form">
-      <!-- <div v-if="!submitted"> -->
       <h2>Add new user</h2>
       <hr />
       <form v-on:submit.prevent="addNewUser" class="form">
-        <!-- <input /> -->
         <div class="form-group">
           <input type="text" placeholder="Enter name" v-model="user.name" />
         </div>
@@ -45,7 +43,6 @@
 </template>
 
 <script>
-// import UserDataService from "../services/UserDataService";
 export default {
   name: "AddNewUser",
   data() {
@@ -64,6 +61,7 @@ export default {
   methods: {
     addNewUser() {
       this.$emit("save", this.user);
+      this.$emit("hideModalAdd");
       this.user = {
         id: Math.floor(Math.random() * 10000),
         name: "",
@@ -72,9 +70,6 @@ export default {
         phone: "",
         email: "",
       };
-    },
-    hideModal() {
-      this.$emit("hideModalAdd");
     },
   },
 };
