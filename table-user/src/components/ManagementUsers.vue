@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div v-if="users">
-      <button type="button" class="button" @click="showModal = true">
-        Add new user
+      <button type="button" class="button" @click="showModal = !showModal">
+        + Add new user
       </button>
       <table>
         <thead>
@@ -25,14 +25,7 @@
             <td class="col">{{ user.phone }}</td>
             <td class="col">{{ user.email }}</td>
             <td>
-              <button
-                type="button"
-                class="btn btn1"
-                @click="
-                  showModalEdit = true;
-                  clickEdit(user);
-                "
-              >
+              <button type="button" class="btn btn1" @click="clickEdit(user)">
                 Edit
               </button>
               <button class="btn btn2" @click="clickDelete(user)">
@@ -42,18 +35,25 @@
           </tr>
         </tbody>
       </table>
-      <AddNewUser v-if="showModal" @save="clickSave" />
-      <EditUser v-if="showModalEdit" :itemEdit="person" />
+      <EditUser
+        :itemEdit="person"
+        v-if="showModalEdit"
+        @onEditUser="userEdited"
+        @hideModalEdit="showModalEdit = false"
+      />
+      <AddNewUser
+        v-if="showModal"
+        @save="clickSave"
+        @hideModalAdd="showModal = false"
+      />
     </div>
     <div v-else>Add the new user to view list users</div>
   </div>
 </template>
 
 <script>
-
 import AddNewUser from "./AddNewUser.vue";
 import EditUser from "./EditUser.vue";
-
 export default {
   name: "ManagementUsers",
   components: {
@@ -62,10 +62,8 @@ export default {
   },
   data() {
     return {
-
       showModalEdit: false,
       showModal: false,
-
       users: [
         {
           id: 1,
@@ -76,13 +74,14 @@ export default {
           email: "ha@gmail.com",
         },
       ],
+      person: {},
     };
   },
   methods: {
     clickSave(itemSave) {
       let index = this.users.findIndex((c) => c.id === itemSave.id);
       if (index >= 0) {
-        this.users.splice(index,1,itemSave);
+        this.users.splice(index, 1, itemSave);
       } else {
         let max = 0;
         let newId = 0;
@@ -93,11 +92,11 @@ export default {
         }
         newId = max + 1;
         itemSave.id = newId;
+        console.log(itemSave);
         this.users.push(itemSave);
       }
       return;
     },
-
     clickDelete(itemDelete) {
       for (let i = 0; i < this.users.length; i++) {
         if (itemDelete.id === this.users[i].id) {
@@ -106,8 +105,18 @@ export default {
       }
     },
     clickEdit(itemEdit) {
-      console.log(itemEdit);
+      this.showModalEdit = true;
       this.person = itemEdit;
+      console.log(this.person);
+    },
+    userEdited(itemEdited) {
+      console.log("ha", itemEdited);
+      for (let i = 0; i < this.users.length; i++) {
+        if (itemEdited.id === this.users[i].id) {
+          this.users[i] = itemEdited;
+        }
+      }
+      return;
     },
   },
 };
@@ -124,7 +133,6 @@ table {
 .title {
   background-color: aqua;
 }
-
 th,
 td {
   text-align: left;
@@ -139,7 +147,7 @@ button {
   color: white;
   border-radius: 3px;
   padding: 7px;
-  font-size: larger;
+  font-size: 20px;
 }
 .button:hover {
   background-color: #3e8e41;

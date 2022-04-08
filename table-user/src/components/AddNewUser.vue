@@ -1,43 +1,43 @@
 <template>
-  <div class="container" v-if="showModal">
+  <div class="container">
     <div class="add-form">
       <!-- <div v-if="!submitted"> -->
       <h2>Add new user</h2>
       <hr />
-      <form class="form">
+      <form v-on:submit.prevent="addNewUser" class="form">
         <!-- <input /> -->
         <div class="form-group">
-          <label for="fname">Name:</label><br />
-          <input type="text" v-model="user.name" /><br />
+          <input type="text" placeholder="Enter name" v-model="user.name" />
         </div>
         <div class="form-group">
-          <label for="lname">Address:</label><br />
-          <input type="text" v-model="user.address" /><br /><br />
+          <input
+            type="text"
+            placeholder="Enter address"
+            v-model="user.address"
+          />
         </div>
         <div class="form-group">
-          <label for="lname">Birthday:</label><br />
-          <input type="text" v-model="user.birthday" /><br /><br />
+          <input
+            type="text"
+            placeholder="Enter birthday"
+            v-model="user.birthday"
+          />
         </div>
         <div class="form-group">
-          <label for="lname">Phoner number:</label><br />
-          <input type="text" v-model="user.email" /><br /><br />
+          <input
+            type="text"
+            placeholder="Enter phone number"
+            v-model="user.phone"
+          />
         </div>
         <div class="form-group">
-          <label for="lname">Email:</label><br />
-          <input type="text" /><br /><br />
+          <input type="text" placeholder="Enter email" v-model="user.email" />
         </div>
-        <div>
-          <button class="btn1" type="submit" @click="showModal = false">
+        <div class="form-btn">
+          <button class="btn-cancel" type="submit" @click="hideModal">
             Cancel
           </button>
-
-          <b-button
-            @click="addNewUser"
-            class="btn2"
-            variant="danger"
-            type="submit"
-            >Add</b-button
-          >
+          <button class="btn-add" type="submit">Add</button>
         </div>
       </form>
     </div>
@@ -58,8 +58,6 @@ export default {
         phone: "",
         email: "",
       },
-
-      showModal: true,
       users: [],
     };
   },
@@ -75,22 +73,9 @@ export default {
         email: "",
       };
     },
-  },
-    props: {
-    itemEdit: {
-      type: Object,
-      default: null,
+    hideModal() {
+      this.$emit("hideModalAdd");
     },
-
-  },
-  watch:{
-    itemEdit(){
-      if(this.itemEdit){
-        this.user=Object.assign({},this.itemEdit)
-      }else{
-        this.user={}
-      }
-    }
   },
 };
 </script>
@@ -107,46 +92,51 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(255, 253, 253, 0.5);
 }
 
-.add-form {
-  border-collapse: collapse;
-  /* margin-left: 20%; */
-  border: solid rgb(39, 40, 42) 1px;
-  text-align: left;
-  width: 32%;
-  height: 500px;
-  overflow: auto;
-  background-color: #fff;
-  border-radius: 3px;
-}
 input {
-  width: 85%;
   height: 30px;
-  border-radius: 3px;
+  border-radius: 10px;
+  width: 100%;
+  margin-left: 3%;
 }
 h2 {
   text-align: center;
 }
 
+.form {
+  background: #fff;
+}
 .form-group {
-  margin-left: 50px;
+  margin: 30px;
 }
-.btn1 {
+.form-btn {
+  margin: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+.btn-cancel {
   background: rgb(120, 117, 117);
-  color: white;
+  width: 60px;
+  color: #fff;
   border-radius: 3px;
-  padding: 7px;
-  margin-left: 20%;
-  /* margin-left: 50%; */
-  /* justify-content: center; */
+  border: none;
+  font-size: 15px;
 }
-.btn2 {
+.btn-cancel:hover {
+  background: rgb(77, 77, 77);
+}
+.btn-add {
   background: rgb(48, 211, 78);
-  color: white;
-  border-radius: 3px;
   padding: 7px;
-  margin-left: 40%;
-  /* justify-content: center; */
+  width: 60px;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  font-size: 15px;
+}
+.btn-add:hover {
+  background: rgb(30, 112, 45);
 }
 </style>

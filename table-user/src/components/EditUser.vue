@@ -1,39 +1,33 @@
 <template>
-  <div class="container" v-if="showModalEdit">
+  <div class="container">
     <div class="add-form">
       <!-- <div v-if="!submitted"> -->
       <h2>Edit user</h2>
       <hr />
-      <form v-on:submit.prevent="editUser" class="form">
+      <div class="form">
         <!-- <input /> -->
         <div class="form-group">
-          <label for="fname">Name:</label><br />
-          <input type="text" v-model="user.name" /><br />
+          <input type="text" v-model="user.name" />
         </div>
         <div class="form-group">
-          <label for="lname">Address:</label><br />
-          <input type="text" v-model="user.address" /><br /><br />
+          <input type="text" v-model="user.address" />
         </div>
         <div class="form-group">
-          <label for="lname">Birthday:</label><br />
-          <input type="text" v-model="user.birthday" /><br /><br />
+          <input type="text" v-model="user.birthday" />
         </div>
         <div class="form-group">
-          <label for="lname">Phoner number:</label><br />
-          <input type="text" v-model="user.email" /><br /><br />
+          <input type="text" v-model="user.phone" />
         </div>
         <div class="form-group">
-          <label for="lname">Email:</label><br />
-          <input type="text" /><br /><br />
+          <input type="text" v-model="user.email" />
         </div>
-        <div>
-          <button class="btn1" type="submit" @click="showModalEdit = false">
+        <div class="form-btn">
+          <!-- <button class="btn-cancel" type="submit" @click="hideModal">
             Cancel
-          </button>
-
-          <button class="btn2" type="submit">Edit</button>
+          </button> -->
+          <button class="btn-update" @click="onEditUser()">Update</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -42,66 +36,47 @@
 // import UserDataService from "../services/UserDataService";
 export default {
   name: "EditUser",
-  //   data() {
-  //     return {
-  //       user: {
-  //         id: null,
-  //         name: "",
-  //         address: "",
-  //         birthday: "",
-  //         phone: "",
-  //         email: "",
-  //       },
-  //       showModalEdit: true,
-  //       users: [],
-  //     };
-  //   },
-  props: {
-    itemEdit:{
-      type: Object,
-      default: null,
-    },
-
+  data() {
+    return {
+      user: {
+        id: Math.floor(Math.random() * 10000),
+        name: "",
+        address: "",
+        birthday: "",
+        phone: "",
+        email: "",
+      },
+    };
   },
-  watch:{
-    itemEdit(){
-      if(this.itemEdit){
-        this.user=Object.assign({},this.itemEdit)
-      }else{
-        this.user={}
-      }
-    }
+  props: {
+    itemEdit: {
+      name: "",
+      address: "",
+      birthday: "",
+      phone: "",
+      email: "",
+    },
+  },
+  created() {
+    this.user = { ...this.itemEdit };
   },
   methods: {
     editUser() {
-      var user = this.user;
-      this.users.push({
-        id: Math.random().toString().split(".")[1],
-        name: user,
-        address: user.address,
-        birthday: user.birthday,
-        phone: user.phone,
-        email: user.email,
-      });
-      // router.push('/')
+      // var user = this.user;
     },
+    onEditUser() {
+      this.$emit("onEditUser", this.user);
+      this.$emit("hideModalEdit");
+      console.log(this.user);
+    },
+    // hideModal() {
+    //   this.$emit("hideModalEdit");
+    // },
   },
 };
 </script>
 
 <style>
-.container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .add-form {
   border-collapse: collapse;
   /* margin-left: 20%; */
@@ -109,8 +84,9 @@ export default {
   text-align: left;
   width: 32%;
   height: 500px;
+  background-color: rgb(126, 171, 235);
   overflow: auto;
-  background-color: #fff;
+
   border-radius: 3px;
 }
 input {
@@ -121,24 +97,39 @@ input {
 h2 {
   text-align: center;
 }
+.form {
+  background-color: rgb(126, 171, 235);
+}
 .form-group {
-  margin-left: 50px;
+  margin: 25px;
+  margin-left: 10%;
 }
-.btn1 {
+.form-btn {
+  margin: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+.btn-cancel {
   background: rgb(120, 117, 117);
-  color: white;
+  width: 60px;
+  color: #fff;
   border-radius: 3px;
-  padding: 7px;
-  margin-left: 20%;
-  /* margin-left: 50%; */
-  /* justify-content: center; */
+  border: none;
+  font-size: 15px;
 }
-.btn2 {
-  background: rgb(48, 211, 78);
-  color: white;
-  border-radius: 3px;
+.btn-cancel:hover {
+  background: rgb(77, 77, 77);
+}
+.btn-update {
+  background: rgb(36, 146, 56);
   padding: 7px;
-  margin-left: 40%;
-  /* justify-content: center; */
+  width: 60px;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  font-size: 15px;
+}
+.btn-update:hover {
+  background: rgb(30, 112, 45);
 }
 </style>
