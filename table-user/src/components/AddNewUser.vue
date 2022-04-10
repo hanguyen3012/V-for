@@ -5,11 +5,7 @@
       <hr />
       <form v-on:submit.prevent="addNewUser" class="form">
         <div class="form-group">
-          <input
-            type="text"
-            placeholder="Enter name"
-            v-model.trim="$v.user.name.$model"
-          />
+          <input type="text" placeholder="Enter name" v-model="user.name" />
           <!-- <div v-if="!$v.user.name.required" class="invalid-feed">
             The name field is required.
           </div> -->
@@ -18,15 +14,16 @@
           <input
             type="text"
             placeholder="Enter address"
-            v-model.trim="user.address"
+            v-model="user.address"
           />
         </div>
         <div class="form-group">
           <input
-            type="text"
+            type="date"
             placeholder="Enter birthday"
             v-model="user.birthday"
           />
+          
         </div>
         <div class="form-group">
           <input
@@ -51,19 +48,18 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import {
-  required,
-  email,
-  minLength,
-  maxLength,
-} from "vuelidate/lib/validators";
+// import {
+//   required,
+//   email,
+// minLength,
+// maxLength,
+//} from "@vuelidate/validators";
 export default {
   name: "AddNewUser",
-  setup() {
-    return { v$: useVuelidate() };
-  },
+
   data() {
     return {
+      v$: useVuelidate(),
       user: {
         id: Math.floor(Math.random() * 10000),
         name: "",
@@ -72,25 +68,24 @@ export default {
         phone: "",
         email: "",
       },
-      users: [],
-      validations() {
-        return {
-          user: {
-            name: { required },
-            address: { required },
-            birthday: { required },
-            phone: { required, min: minLength(10), max: maxLength(11) },
-            email: { required, email },
-          },
-        };
-      },
+      // validations() {
+      //   return {
+      //     user: {
+      //       name: { required },
+      //       address: { required },
+      //       birthday: { required },
+      //       // phone: { required, min: minLength(10), max: maxLength(11) },
+      //       email: { required, email },
+      //     },
+      //   };
+      // },
     };
   },
   methods: {
     addNewUser() {
-      this.$v.$touch();
-      if (this.$v.$pendding || this.$v.$error) return;
-      alert("Data submit");
+      this.v$.$touch();
+      // if (this.$v.$pendding || this.$v.$error) return;
+      // alert("Data submit");
 
       this.$emit("save", this.user);
       this.$emit("hideModalAdd");
