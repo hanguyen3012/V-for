@@ -62,7 +62,7 @@
             @blur="v$.user.email.$touch()"
           />
           <p v-if="v$.user.email.$error" class="invalid-feedback">
-            The email field is required!
+            The email field is required! You must enter a valid email address.
           </p>
           <!-- <p v-if="!v$.user.email.email" class="invalid-feedback">
             The email is not valid
@@ -70,6 +70,9 @@
         </div>
 
         <div class="form-btn">
+          <button class="btn-cancel" type="submit" @click="hideModal">
+            Cancel
+          </button>
           <button class="btn-add" type="submit">Add</button>
         </div>
       </form>
@@ -120,16 +123,6 @@ export default {
   methods: {
     async addNewUser() {
       await this.v$.$touch();
-      // const isFormCorrect = await this.v$.$validate();
-      // validate() => true/false
-      // console.log("user", this.v$.user.$error);
-      // console.log("user1", this.v$.user.email);
-      // console.log("name", this.v$.user.name.$error);
-      // console.log("address", this.v$.user.name.$error);
-      // console.log("birthday", this.v$.user.birthday.$error);
-      console.log("phone", this.v$.user.phone.min);
-      // console.log("email", this.v$.user.email.email);
-      console.log("phone", this.v$.user.phone.required);
       if (!this.v$.user.$invalid) {
         this.$emit("save", this.user);
         this.$emit("hideModalAdd");
