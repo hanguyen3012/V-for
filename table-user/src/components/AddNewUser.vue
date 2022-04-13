@@ -6,7 +6,10 @@
       <form v-on:submit.prevent="addNewUser" class="form">
         <div class="form-group">
           <input type="text" placeholder="Enter name" v-model="user.name" />
-          <!-- <div v-if="!$v.user.name.required" class="invalid-feed">
+          <p v-if="!v$.user.name.required">The email field is required!</p>
+          <!-- <div v-if="v$.user.name.$error">Name field has an error</div> -->
+          <!-- {{ console.log("a", !v$.user.name.required) }} -->
+          <!-- <div v-if="!v$.user.name.required" class="invalid-feed">
             The name field is required.
           </div> -->
         </div>
@@ -23,7 +26,6 @@
             placeholder="Enter birthday"
             v-model="user.birthday"
           />
-          
         </div>
         <div class="form-group">
           <input
@@ -48,18 +50,13 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-// import {
-//   required,
-//   email,
-// minLength,
-// maxLength,
-//} from "@vuelidate/validators";
+import { required, email, minLength, maxLength } from "@vuelidate/validators";
+
 export default {
   name: "AddNewUser",
 
   data() {
     return {
-      v$: useVuelidate(),
       user: {
         id: Math.floor(Math.random() * 10000),
         name: "",
@@ -68,27 +65,28 @@ export default {
         phone: "",
         email: "",
       },
-      // validations() {
-      //   return {
-      //     user: {
-      //       name: { required },
-      //       address: { required },
-      //       birthday: { required },
-      //       // phone: { required, min: minLength(10), max: maxLength(11) },
-      //       email: { required, email },
-      //     },
-      //   };
-      // },
+      setup() {
+        return { v$: useVuelidate };
+      },
+      validations() {
+        return {
+          user: {
+            name: { required },
+            address: { required },
+            birthday: { required },
+            phone: { required, min: minLength(10), max: maxLength(11) },
+            email: { required, email },
+          },
+        };
+      },
     };
   },
   methods: {
     addNewUser() {
       this.v$.$touch();
+
       // if (this.$v.$pendding || this.$v.$error) return;
       // alert("Data submit");
-
-      this.$emit("save", this.user);
-      this.$emit("hideModalAdd");
       this.user = {
         id: Math.floor(Math.random() * 10000),
         name: "",
@@ -97,6 +95,8 @@ export default {
         phone: "",
         email: "",
       };
+      this.$emit("save", this.user);
+      this.$emit("hideModalAdd");
     },
   },
 };
