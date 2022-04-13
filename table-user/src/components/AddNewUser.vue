@@ -6,12 +6,9 @@
       <form v-on:submit.prevent="addNewUser" class="form">
         <div class="form-group">
           <input type="text" placeholder="Enter name" v-model="user.name" />
-          <p v-if="!v$.user.name.required">The email field is required!</p>
-          <!-- <div v-if="v$.user.name.$error">Name field has an error</div> -->
-          <!-- {{ console.log("a", !v$.user.name.required) }} -->
-          <!-- <div v-if="!v$.user.name.required" class="invalid-feed">
-            The name field is required.
-          </div> -->
+          <p v-if="!v$.user.name.required" class="invalid-feedback">
+            The name field is required!
+          </p>
         </div>
         <div class="form-group">
           <input
@@ -19,6 +16,9 @@
             placeholder="Enter address"
             v-model="user.address"
           />
+          <p v-if="!v$.user.address.required" class="invalid-feedback">
+            The address field is required!
+          </p>
         </div>
         <div class="form-group">
           <input
@@ -26,6 +26,9 @@
             placeholder="Enter birthday"
             v-model="user.birthday"
           />
+          <p v-if="!v$.user.birthday.required" class="invalid-feedback">
+            The birthday field is required!
+          </p>
         </div>
         <div class="form-group">
           <input
@@ -33,10 +36,27 @@
             placeholder="Enter phone number"
             v-model="user.phone"
           />
+          <p v-if="!v$.user.phone.required" class="invalid-feedback">
+            The phone number field is required!
+          </p>
+          <div v-if="!$v.user.phone.minLength" class="invalid-feedback">
+            You must have at least
+            {{ $v.user.phone.$params.minLength.min }} letters.
+          </div>
+          <div v-if="!$v.user.phone.maxLength" class="invalid-feedback">
+            You must not have greater then
+            {{ $v.user.phone.$params.maxLength.min }} letters.
+          </div>
         </div>
         <div class="form-group">
           <input type="text" placeholder="Enter email" v-model="user.email" />
         </div>
+        <p v-if="!v$.user.email.required" class="invalid-feedback">
+          The email field is required!
+        </p>
+        <p v-if="!v$.user.email.email" class="invalid-feedback">
+          The email is not valid
+        </p>
         <div class="form-btn">
           <button class="btn-cancel" type="submit" @click="hideModal">
             Cancel
@@ -65,19 +85,19 @@ export default {
         phone: "",
         email: "",
       },
-      setup() {
-        return { v$: useVuelidate };
-      },
-      validations() {
-        return {
-          user: {
-            name: { required },
-            address: { required },
-            birthday: { required },
-            phone: { required, min: minLength(10), max: maxLength(11) },
-            email: { required, email },
-          },
-        };
+    };
+  },
+  setup() {
+    return { v$: useVuelidate };
+  },
+  validations() {
+    return {
+      user: {
+        name: { required },
+        address: { required },
+        birthday: { required },
+        phone: { required, min: minLength(10), max: maxLength(11) },
+        email: { required, email },
       },
     };
   },
@@ -85,7 +105,7 @@ export default {
     addNewUser() {
       this.v$.$touch();
 
-      // if (this.$v.$pendding || this.$v.$error) return;
+      if (this.$v.$pendding || this.$v.$error) return;
       // alert("Data submit");
       this.user = {
         id: Math.floor(Math.random() * 10000),
