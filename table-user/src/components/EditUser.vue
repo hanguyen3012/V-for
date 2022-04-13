@@ -25,7 +25,7 @@
         <div class="form-group">
           <input type="text" v-model.trim="user.phone" />
           <p v-if="v$.user.phone.$error" class="invalid-feedback">
-            You must enter a phone number have been from 10 to 11 numbers!
+            You must enter a phone number with 10 to 11 numbers!
           </p>
         </div>
         <div class="form-group">
