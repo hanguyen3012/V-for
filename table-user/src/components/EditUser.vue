@@ -6,18 +6,34 @@
       <div class="form">
         <div class="form-group">
           <input type="text" v-model.trim="user.name" />
+          <p v-if="v$.user.name.$error" class="invalid-feedback">
+            The name field is required!
+          </p>
         </div>
         <div class="form-group">
           <input type="text" v-model.trim="user.address" />
+          <p v-if="v$.user.address.$error" class="invalid-feedback">
+            The address field is required!
+          </p>
         </div>
         <div class="form-group">
           <input type="text" v-model.trim="user.birthday" />
+          <p v-if="v$.user.birthday.$error" class="invalid-feedback">
+            The birthday field is required!
+          </p>
         </div>
         <div class="form-group">
           <input type="text" v-model.trim="user.phone" />
+          <p v-if="v$.user.phone.$error" class="invalid-feedback">
+            The phone number field is required. It must have been between 10 and
+            11 numbers!
+          </p>
         </div>
         <div class="form-group">
           <input type="text" v-model.trim="user.email" />
+          <p v-if="v$.user.email.$error" class="invalid-feedback">
+            The birthday field is required!
+          </p>
         </div>
         <div class="form-btn">
           <button class="btn-update" @click="onEditUser()">Update</button>
@@ -28,8 +44,18 @@
 </template>
 
 <script>
+import useVuelidate from "@vuelidate/core";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from "vuelidate/lib/validators";
 export default {
   name: "EditUser",
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       user: {
@@ -42,6 +68,17 @@ export default {
       },
     };
   },
+  validations() {
+    return {
+      user: {
+        name: { required },
+        address: { required },
+        birthday: { required },
+        phone: { required, minLength: minLength(10), maxLength: maxLength(11) },
+        email: { required, email },
+      },
+    };
+  },
   props: {
     itemEdit: {
       name: "",
@@ -51,14 +88,18 @@ export default {
       email: "",
     },
   },
+
   created() {
     this.user = { ...this.itemEdit };
   },
   methods: {
-    editUser() {},
-    onEditUser() {
-      this.$emit("onEditUser", this.user);
-      this.$emit("hideModalEdit");
+    async onEditUser() {
+      await this.v$.$touch();
+      if (!this.v$.user.$invalid) {
+        this.$emit("onEditUser", this.user);
+        this.$emit("hideModalEdit");
+      }
+      if (this.v$.user.$invalid) return;
     },
   },
 };
@@ -72,7 +113,7 @@ export default {
   text-align: left;
   width: 32%;
   height: 500px;
-  background-color: rgb(126, 171, 235);
+  background-color: rgb(141, 218, 176);
   overflow: auto;
 
   border-radius: 3px;
@@ -86,7 +127,7 @@ h2 {
   text-align: center;
 }
 .form {
-  background-color: rgb(126, 171, 235);
+  background-color: rgb(141, 218, 176);
 }
 .form-group {
   margin: 25px;
@@ -119,5 +160,9 @@ h2 {
 }
 .btn-update:hover {
   background: rgb(30, 112, 45);
+}
+.invalid-feedback {
+  color: red;
+  font-size: small;
 }
 </style>

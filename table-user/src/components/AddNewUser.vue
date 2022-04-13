@@ -5,8 +5,13 @@
       <hr />
       <form v-on:submit.prevent="addNewUser" class="form">
         <div class="form-group">
-          <input type="text" placeholder="Enter name" v-model="user.name" />
-          <p v-if="!v$.user.name.required" class="invalid-feedback">
+          <input
+            type="text"
+            placeholder="Enter name"
+            v-model="user.name"
+            @blur="v$.user.name.$touch()"
+          />
+          <p v-if="v$.user.name.$error" class="invalid-feedback">
             The name field is required!
           </p>
         </div>
@@ -16,7 +21,7 @@
             placeholder="Enter address"
             v-model="user.address"
           />
-          <p v-if="!v$.user.address.required" class="invalid-feedback">
+          <p v-if="v$.user.address.$error" class="invalid-feedback">
             The address field is required!
           </p>
         </div>
@@ -26,7 +31,7 @@
             placeholder="Enter birthday"
             v-model="user.birthday"
           />
-          <p v-if="!v$.user.birthday.required" class="invalid-feedback">
+          <p v-if="v$.user.birthday.$error" class="invalid-feedback">
             The birthday field is required!
           </p>
         </div>
@@ -36,31 +41,35 @@
             placeholder="Enter phone number"
             v-model="user.phone"
           />
-          <p v-if="!v$.user.phone.required" class="invalid-feedback">
-            The phone number field is required!
+          <p v-if="v$.user.phone.$error" class="invalid-feedback">
+            The phone number field is required. It must have been between 10 and
+            11 numbers!
           </p>
-          <div v-if="!$v.user.phone.minLength" class="invalid-feedback">
+          <!-- <p v-if="!v$.user.phone.minLength" class="invalid-feedback">
             You must have at least
-            {{ $v.user.phone.$params.minLength.min }} letters.
-          </div>
-          <div v-if="!$v.user.phone.maxLength" class="invalid-feedback">
+            {{ v$.user.phone.$params.minLength.min }} letters.
+          </p>
+          <p v-if="!v$.user.phone.maxLength" class="invalid-feedback">
             You must not have greater then
-            {{ $v.user.phone.$params.maxLength.min }} letters.
-          </div>
+            {{ v$.user.phone.$params.maxLength.max }} letters.
+          </p> -->
         </div>
         <div class="form-group">
-          <input type="text" placeholder="Enter email" v-model="user.email" />
+          <input
+            type="text"
+            placeholder="Enter email"
+            v-model="user.email"
+            @blur="v$.user.email.$touch()"
+          />
+          <p v-if="v$.user.email.$error" class="invalid-feedback">
+            The email field is required!
+          </p>
+          <!-- <p v-if="!v$.user.email.email" class="invalid-feedback">
+            The email is not valid
+          </p> -->
         </div>
-        <p v-if="!v$.user.email.required" class="invalid-feedback">
-          The email field is required!
-        </p>
-        <p v-if="!v$.user.email.email" class="invalid-feedback">
-          The email is not valid
-        </p>
+
         <div class="form-btn">
-          <button class="btn-cancel" type="submit" @click="hideModal">
-            Cancel
-          </button>
           <button class="btn-add" type="submit">Add</button>
         </div>
       </form>
@@ -70,11 +79,18 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, email, minLength, maxLength } from "@vuelidate/validators";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from "vuelidate/lib/validators";
 
 export default {
   name: "AddNewUser",
-
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       user: {
@@ -87,36 +103,39 @@ export default {
       },
     };
   },
-  setup() {
-    return { v$: useVuelidate };
-  },
   validations() {
     return {
       user: {
         name: { required },
         address: { required },
         birthday: { required },
-        phone: { required, min: minLength(10), max: maxLength(11) },
+        phone: { required, minLength: minLength(10), maxLength: maxLength(11) },
         email: { required, email },
       },
     };
   },
+  created() {
+    console.log("", this.v$);
+  },
   methods: {
-    addNewUser() {
-      this.v$.$touch();
-
-      if (this.$v.$pendding || this.$v.$error) return;
-      // alert("Data submit");
-      this.user = {
-        id: Math.floor(Math.random() * 10000),
-        name: "",
-        address: "",
-        birthday: "",
-        phone: "",
-        email: "",
-      };
-      this.$emit("save", this.user);
-      this.$emit("hideModalAdd");
+    async addNewUser() {
+      await this.v$.$touch();
+      // const isFormCorrect = await this.v$.$validate();
+      // validate() => true/false
+      // console.log("user", this.v$.user.$error);
+      // console.log("user1", this.v$.user.email);
+      // console.log("name", this.v$.user.name.$error);
+      // console.log("address", this.v$.user.name.$error);
+      // console.log("birthday", this.v$.user.birthday.$error);
+      console.log("phone", this.v$.user.phone.min);
+      // console.log("email", this.v$.user.email.email);
+      console.log("phone", this.v$.user.phone.required);
+      if (!this.v$.user.$invalid) {
+        this.$emit("save", this.user);
+        this.$emit("hideModalAdd");
+      }
+      // if (!this.v$.user.name.$invalid) return;
+      if (this.v$.user.$invalid) return;
     },
   },
 };
@@ -180,5 +199,8 @@ h2 {
 }
 .btn-add:hover {
   background: rgb(30, 112, 45);
+}
+.invalid-feedback {
+  color: red;
 }
 </style>
