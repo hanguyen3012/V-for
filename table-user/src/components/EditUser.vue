@@ -31,10 +31,12 @@
         <div class="form-group">
           <input type="text" v-model.trim="user.email" />
           <p v-if="v$.user.email.$error" class="invalid-feedback">
-            The email field is required! You must enter a valid email address.
+            The email field is required! You must enter a valid email address!
           </p>
         </div>
+
         <div class="form-btn">
+          <button type="button" class="close" @click="$emit('close')">X</button>
           <button class="btn-update" @click="onEditUser()">Update</button>
         </div>
       </div>

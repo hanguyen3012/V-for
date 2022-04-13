@@ -43,8 +43,9 @@
       />
       <AddNewUser
         v-if="showModal"
+        v-show="showModal"
+        @close="closeModal"
         @save="clickSave"
-        @hideModalAdd="showModal = false"
       />
     </div>
     <div v-else>Add the new user to view list users</div>
@@ -78,8 +79,8 @@ export default {
     };
   },
   methods: {
-    async clickSave(itemSave) {
-      let index = await this.users.findIndex((c) => c.id === itemSave.id);
+    clickSave(itemSave) {
+      let index = this.users.findIndex((c) => c.id === itemSave.id);
       if (index >= 0) {
         this.users.splice(index, 1, itemSave);
       } else {
@@ -96,6 +97,9 @@ export default {
         this.users.push(itemSave);
       }
       return;
+    },
+    closeModal() {
+      this.showModal = false;
     },
     clickDelete(itemDelete) {
       for (let i = 0; i < this.users.length; i++) {
