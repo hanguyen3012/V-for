@@ -39,7 +39,8 @@
         :itemEdit="person"
         v-if="showModalEdit"
         @onEditUser="userEdited"
-        @hideModalEdit="showModalEdit = false"
+        v-show="showModalEdit"
+        @close="closeModalEdit"
       />
       <AddNewUser
         v-if="showModal"
@@ -100,6 +101,9 @@ export default {
     },
     closeModal() {
       this.showModal = false;
+    },
+    closeModalEdit() {
+      this.showModalEdit = false;
     },
     clickDelete(itemDelete) {
       for (let i = 0; i < this.users.length; i++) {

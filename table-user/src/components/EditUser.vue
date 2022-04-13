@@ -36,7 +36,9 @@
         </div>
 
         <div class="form-btn">
-          <button type="button" class="close" @click="$emit('close')">X</button>
+          <button type="button" class="btn-cancel" @click="$emit('close')">
+            Close
+          </button>
           <button class="btn-update" @click="onEditUser()">Update</button>
         </div>
       </div>
