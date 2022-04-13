@@ -42,8 +42,7 @@
             v-model="user.phone"
           />
           <p v-if="v$.user.phone.$error" class="invalid-feedback">
-            The phone number field is required. It must have been between 10 and
-            11 numbers!
+            You must enter a phone number have been from 10 to 11 numbers!
           </p>
           <!-- <p v-if="!v$.user.phone.minLength" class="invalid-feedback">
             You must have at least
@@ -62,7 +61,7 @@
             @blur="v$.user.email.$touch()"
           />
           <p v-if="v$.user.email.$error" class="invalid-feedback">
-            The email field is required! You must enter a valid email address.
+            You must enter a valid email address.
           </p>
           <!-- <p v-if="!v$.user.email.email" class="invalid-feedback">
             The email is not valid
@@ -70,9 +69,6 @@
         </div>
 
         <div class="form-btn">
-          <button class="btn-cancel" type="submit" @click="hideModal">
-            Cancel
-          </button>
           <button class="btn-add" type="submit">Add</button>
         </div>
       </form>

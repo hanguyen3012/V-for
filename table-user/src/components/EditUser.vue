@@ -25,14 +25,13 @@
         <div class="form-group">
           <input type="text" v-model.trim="user.phone" />
           <p v-if="v$.user.phone.$error" class="invalid-feedback">
-            The phone number field is required. It must have been between 10 and
-            11 numbers!
+            You must enter a phone number have been from 10 to 11 numbers!
           </p>
         </div>
         <div class="form-group">
           <input type="text" v-model.trim="user.email" />
           <p v-if="v$.user.email.$error" class="invalid-feedback">
-            The birthday field is required!
+            The email field is required! You must enter a valid email address.
           </p>
         </div>
         <div class="form-btn">
