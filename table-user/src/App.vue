@@ -10,7 +10,7 @@
 import ManagementUsers from "./components/ManagementUsers.vue";
 import LoginForm from "./components/LoginForm.vue";
 
-import { mapGetters } from "vue";
+// import { mapGetters } from "vue";
 
 export default {
   name: "App",
@@ -18,7 +18,12 @@ export default {
     LoginForm,
     ManagementUsers,
   },
-  computed: { ...mapGetters(["authenticated"]) },
+  computed: { 
+    auth(){
+      return this.$store.getters.auth
+    }
+    // ...mapGetters(["authenticated"])
+     },
 
   // methods: {
   //   ...mapActions(["logout"]),
