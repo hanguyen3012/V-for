@@ -24,42 +24,45 @@
           <input type="checkbox" checked="checked" name="remember" /> Remember
           me
         </label> -->
-        <button type="submit" @click="login()">Login</button>
+        <button type="submit" >Login</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-// import { mapActions } from "vuex";
+import { mapState } from "vuex";
 // import ManagementUsers from "./ManagementUsers.vue";
 export default {
   name: "LoginForm",
   data() {
     return {
       username: "",
-      password: "",
-      authenticated: false,
+      password: ""
     };
   },
   computed: {
-    // ...mapState(["authenticated", "username", "password"]),
-    // ...mapGetters(["authenticated", "username", "password"]),
+    //     auth(){
+    //   return this.$store.getters.auth
+    // },
+    // ...mapState({username: state =>state.username, password: state =>state.password}),
+    // ...mapGetters([ "username", "password"]),
   },
   methods: {
     // ...mapActions(["login"]),
     handleLogin(e) {
       e.preventDefault();
-      if (this.username != "" && this.password != "") {
-        if (this.username == "hanguyen" && this.password == "123") {
-          this.setAuthenticated = true;
-          //   return <ManagementUsers />;
-        } else {
-          console.log("Login is unsuccessful");
-        }
-      } else {
-        console.log();
-      }
+      console.log(this.username)
+      // if (this.username != "" && this.password != "") {
+      //   if (this.username == "hanguyen" && this.password == "123") {
+      //     this.auth= true;
+      //     //   return <ManagementUsers />;
+      //   } else {
+      //     console.log("Login is unsuccessful");
+      //   }
+      // } else {
+      //   console.log();
+      // }
     },
   },
 };

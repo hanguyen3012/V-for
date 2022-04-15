@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div v-if="authenticated" v-on:click="logout()" replace>Logout</div>
-    <LoginForm v-if="!authenticated" />
-    <ManagementUsers v-if="authenticated" />
+    <button v-if="auth" v-on:click="logout()"  class ="logout" replace>Logout</button>
+    <LoginForm v-if="!auth" />
+    <ManagementUsers v-if="auth" />
   </div>
 </template>
 
@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style>
+ .logout{
+  width:100px
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
