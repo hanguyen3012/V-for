@@ -29,12 +29,12 @@ const store = createStore({
         }
     },
     actions: {
-        async logout({commit}){
+         logout({commit}){
             commit('setAuthenticated',false)
             commit('setUsername',null)
             commit('setPassword', null)
         },
-        async login({commit}){
+         login({commit}){
             commit('setAuthenticated',true)
             commit('setUsername', "hanguyen")
             commit('setPassword', "123")
