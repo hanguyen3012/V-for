@@ -3,7 +3,6 @@
     <div>
       <button type="button" @click="logout()" class="logout">Logout</button>
     </div>
-
     <div v-if="users">
       <button type="button" class="button" @click="showModal = !showModal">
         + Add new user
@@ -90,6 +89,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
+      this.$router.push({ name: "login" });
     },
     clickSave(itemSave) {
       let index = this.users.findIndex((c) => c.id === itemSave.id);

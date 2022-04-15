@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <LoginForm v-if="!auth" />
-    <ManagementUsers v-if="auth" />
+    <!-- <button v-if="auth" v-on:click="logout()" class="logout">Logout</button> -->
+    <div id="nav">
+      <LoginForm v-if="!auth" />
+      <ManagementUsers v-if="auth" />
+    </div>
   </div>
 </template>
 
@@ -18,10 +21,7 @@ export default {
     ManagementUsers,
   },
   computed: {
-    auth() {
-      return this.$store.getters.auth;
-    },
-    // ...mapGetters(["authenticated"])
+    // ...mapGetters(["auth", "accountUser", "accountEnter"]),
   },
 
   // methods: {

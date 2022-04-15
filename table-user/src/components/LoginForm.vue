@@ -20,7 +20,9 @@
           v-model="accountEnter.password"
           required
         />
-        <button type="submit" class="btn-login">Login</button>
+        <button type="submit" class="btn-login" to="./managements">
+          Login
+        </button>
       </div>
     </form>
   </div>
@@ -28,22 +30,15 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import ManagementUsers from "./ManagementUsers.vue";
+
 export default {
   name: "LoginForm",
 
   computed: {
-    // auth() {
-    //   return this.$store.getters.auth;
-    // },
-    // ...mapState({
-    //   username: (state) => state.username,
-    //   password: (state) => state.password,
-    // }),
     ...mapGetters(["auth", "accountUser", "accountEnter"]),
   },
+
   methods: {
-    // ...mapActions(["login"]),
     handleLogin(e) {
       e.preventDefault();
       console.log(!this.accountEnter.username);
@@ -56,11 +51,12 @@ export default {
           this.accountEnter.password === this.accountUser.passwordAcc
         ) {
           this.$store.dispatch("login");
+          this.$router.push({ name: "managements" });
         } else {
-          alert("Login is unsuccessful");
+          alert("The username and / or password is incorrect");
         }
       } else {
-        console.log("ha");
+        alert("A username and password must be present");
       }
     },
   },
@@ -80,7 +76,6 @@ export default {
   margin-left: 30%;
 
   margin-right: 30%;
-  background-color: rgba(255, 253, 253, 0.5);
 }
 form {
   border: 3px solid #f1f1f1;
