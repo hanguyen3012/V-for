@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <button v-if="auth" v-on:click="logout()"  class ="logout" replace>Logout</button>
     <LoginForm v-if="!auth" />
     <ManagementUsers v-if="auth" />
   </div>
@@ -18,22 +17,32 @@ export default {
     LoginForm,
     ManagementUsers,
   },
-  computed: { 
-    auth(){
-      return this.$store.getters.auth
-    }
+  computed: {
+    auth() {
+      return this.$store.getters.auth;
+    },
     // ...mapGetters(["authenticated"])
-     },
+  },
 
   // methods: {
-  //   ...mapActions(["logout"]),
+  //   logout() {
+  //     this.$store.dispatch("logout");
+  //   },
   // },
 };
 </script>
 
 <style>
- .logout{
-  width:100px
+.logout {
+  background-color: orange;
+  width: 100px;
+  padding: 8px;
+  border-radius: 3px;
+  color: white;
+}
+.logout:hover {
+  background-color: rgb(202, 198, 189);
+  width: 100px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

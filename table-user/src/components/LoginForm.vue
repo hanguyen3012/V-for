@@ -24,27 +24,27 @@
           <input type="checkbox" checked="checked" name="remember" /> Remember
           me
         </label> -->
-        <button type="submit" >Login</button>
+        <button type="submit" class="btn-login">Login</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 // import ManagementUsers from "./ManagementUsers.vue";
 export default {
   name: "LoginForm",
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
     };
   },
   computed: {
-    //     auth(){
-    //   return this.$store.getters.auth
-    // },
+    auth() {
+      return this.$store.getters.auth;
+    },
     // ...mapState({username: state =>state.username, password: state =>state.password}),
     // ...mapGetters([ "username", "password"]),
   },
@@ -52,18 +52,21 @@ export default {
     // ...mapActions(["login"]),
     handleLogin(e) {
       e.preventDefault();
-      console.log(this.username)
-      // if (this.username != "" && this.password != "") {
-      //   if (this.username == "hanguyen" && this.password == "123") {
-      //     this.auth= true;
-      //     //   return <ManagementUsers />;
-      //   } else {
-      //     console.log("Login is unsuccessful");
-      //   }
-      // } else {
-      //   console.log();
-      // }
+      console.log(this.username);
+      if (this.username != "" && this.password != "") {
+        if (this.username == "hanguyen" && this.password == "123") {
+          this.$store.dispatch("login");
+          //   return <ManagementUsers />;
+        } else {
+          console.log("Login is unsuccessful");
+        }
+      } else {
+        console.log();
+      }
     },
+  },
+  logout() {
+    this.$store.dispatch("logout");
   },
 };
 </script>
@@ -94,7 +97,7 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-button {
+.btn-login {
   background-color: #04aa6d;
   color: white;
   padding: 14px 20px;
@@ -104,7 +107,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+.btn-login:hover {
   opacity: 0.8;
 }
 

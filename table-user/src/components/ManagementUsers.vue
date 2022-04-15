@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <div>
+      <button type="button" @click="logout()" class="logout">Logout</button>
+    </div>
+
     <div v-if="users">
       <button type="button" class="button" @click="showModal = !showModal">
         + Add new user
@@ -79,7 +83,16 @@ export default {
       person: {},
     };
   },
+  computed: {
+    auth() {
+      return this.$store.getters.auth;
+    },
+    // ...mapGetters(["authenticated"])
+  },
   methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    },
     clickSave(itemSave) {
       let index = this.users.findIndex((c) => c.id === itemSave.id);
       if (index >= 0) {
@@ -129,6 +142,22 @@ export default {
 </script>
 
 <style scoped>
+.logout {
+  position: absolute;
+  background-color: rgb(31, 78, 186);
+
+  width: 100px;
+
+  padding: 8px;
+  border-radius: 3px;
+  color: white;
+  margin-top: -300px;
+  margin-left: 400px;
+}
+.logout:hover {
+  background-color: rgb(202, 198, 189);
+  width: 100px;
+}
 table {
   border-collapse: collapse;
   width: 100%;

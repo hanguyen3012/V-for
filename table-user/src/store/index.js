@@ -19,11 +19,12 @@ const store = createStore({
         }
     },
     actions: {
-        logout(commit){
+        async logout({commit}){
             commit('setAuthenticated',false)
         },
-        // async login({commit}, {username, password}){
-        // }
+        async login({commit}, ){
+            commit('setAuthenticated', true)
+        }
     }
 })
 
