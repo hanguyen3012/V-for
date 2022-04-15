@@ -8,7 +8,7 @@
           type="text"
           placeholder="Enter Username"
           name="uname"
-          v-model="username"
+          v-model="accountEnter.username"
           required
         />
 
@@ -17,7 +17,7 @@
           type="password"
           placeholder="Enter Password"
           name="psw"
-          v-model="password"
+          v-model="accountEnter.password"
           required
         />
         <button type="submit" class="btn-login">Login</button>
@@ -31,37 +31,36 @@ import { mapGetters } from "vuex";
 // import ManagementUsers from "./ManagementUsers.vue";
 export default {
   name: "LoginForm",
-  data() {
-    return {
-      username: "",
-      password: "",
-    };
-  },
+
   computed: {
-    auth() {
-      return this.$store.getters.auth;
-    },
+    // auth() {
+    //   return this.$store.getters.auth;
+    // },
     // ...mapState({
     //   username: (state) => state.username,
     //   password: (state) => state.password,
     // }),
-    ...mapGetters(["usernameAcc", "passwordAcc", "username", "password"]),
+    ...mapGetters(["auth", "accountUser", "accountEnter"]),
   },
   methods: {
     // ...mapActions(["login"]),
     handleLogin(e) {
       e.preventDefault();
-      if (this.username != "" && this.password != "") {
+      console.log(!this.accountEnter.username);
+      if (
+        !this.accountEnter.username === false &&
+        !this.accountEnter.password === false
+      ) {
         if (
-          this.username == this.usernameAcc &&
-          this.password == this.passwordAcc
+          this.accountEnter.username === this.accountUser.usernameAcc &&
+          this.accountEnter.password === this.accountUser.passwordAcc
         ) {
           this.$store.dispatch("login");
         } else {
           alert("Login is unsuccessful");
         }
       } else {
-        console.log();
+        console.log("ha");
       }
     },
   },

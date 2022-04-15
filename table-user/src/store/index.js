@@ -1,47 +1,56 @@
-
-
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 const store = createStore({
-    state: {
-        authenticated: false,
+  state: {
+    authenticated: false,
+    acc:{
         username: "",
         password: "",
-        usernameAcc:"hanguyen",
-        passwordAcc: "123"
     },
-    getters: {
-        auth(state) {return state.authenticated},
-        usernameAcc: state => state.usernameAcc,
-        passwordAcc: state => state.passwordAcc,
-        username: state => state.username,
-        password: state => state.password,
+    account: { usernameAcc: "hanguyen", passwordAcc: "123" },
+  },
+  getters: {
+    auth(state) {
+      return state.authenticated;
     },
-    mutations: {
-        setAuthenticated(state, authenticated){
-            state.authenticated = authenticated;
-        },
-        setUsername(state, username){
-            state.username = username;
-        },
-        setPassword(state, password){
-            state.password = password
-        }
+    accountUser(state) {
+        // console.log(state.u)
+      return {
+        usernameAcc:  state.account.usernameAcc,
+        passwordAcc:  state.account.passwordAcc,
+      };
     },
-    actions: {
-         logout({commit}){
-            commit('setAuthenticated',false)
-            commit('setUsername',null)
-            commit('setPassword', null)
-        },
-         login({commit}){
-            commit('setAuthenticated',true)
-            commit('setUsername', "hanguyen")
-            commit('setPassword', "123")
-        }
-    }
-})
+    accountEnter(state) {
+        return {
+          username:  state.account.username,
+          password:  state.account.password,
+        };
+      },
 
+  },
+  mutations: {
+    setAuthenticated(state, authenticated) {
+      state.authenticated = authenticated;
+    },
+    setUsername(state, username) {
+      state.username = username;
+    },
+    setPassword(state, password) {
+      state.password = password;
+    },
+  },
+  actions: {
+    logout({ commit }) {
+      commit("setAuthenticated", false);
+      commit("setUsername", null);
+      commit("setPassword", null);
+    },
+    login({ commit }) {
+      commit("setAuthenticated", true);
+      commit("setUsername", "hanguyen");
+      commit("setPassword", "123");
+    },
+  },
+});
 
- 
-export default store
+export default store;
