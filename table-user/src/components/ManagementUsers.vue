@@ -85,7 +85,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["auth", "usernameAcc", "passwordAcc"]),
+    ...mapGetters([
+      "auth",
+      "usernameAcc",
+      "passwordAcc",
+      "username",
+      "password",
+    ]),
   },
   methods: {
     logout() {

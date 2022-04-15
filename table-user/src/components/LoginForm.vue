@@ -41,22 +41,22 @@ export default {
     auth() {
       return this.$store.getters.auth;
     },
-    // ...mapState({username: state =>state.username, password: state =>state.password}),
-    ...mapGetters(["usernameAcc", "passwordAcc"]),
+    // ...mapState({
+    //   username: (state) => state.username,
+    //   password: (state) => state.password,
+    // }),
+    ...mapGetters(["usernameAcc", "passwordAcc", "username", "password"]),
   },
   methods: {
     // ...mapActions(["login"]),
     handleLogin(e) {
       e.preventDefault();
-      console.log(this.username);
-      console.log(this.usernameAcc);
       if (this.username != "" && this.password != "") {
         if (
           this.username == this.usernameAcc &&
           this.password == this.passwordAcc
         ) {
           this.$store.dispatch("login");
-          //   return <ManagementUsers />;
         } else {
           alert("Login is unsuccessful");
         }

@@ -14,6 +14,8 @@ const store = createStore({
         auth(state) {return state.authenticated},
         usernameAcc: state => state.usernameAcc,
         passwordAcc: state => state.passwordAcc,
+        username: state => state.username,
+        password: state => state.password,
     },
     mutations: {
         setAuthenticated(state, authenticated){
@@ -32,10 +34,10 @@ const store = createStore({
             commit('setUsername',null)
             commit('setPassword', null)
         },
-        async login({commit},state){
+        async login({commit}){
             commit('setAuthenticated',true)
-            commit('setUsername', state.usernameAcc)
-            commit('setPassword', state.passwordAcc)
+            commit('setUsername', "hanguyen")
+            commit('setPassword', "123")
         }
     }
 })
