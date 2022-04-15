@@ -20,10 +20,6 @@
           v-model="password"
           required
         />
-        <!-- <label>
-          <input type="checkbox" checked="checked" name="remember" /> Remember
-          me
-        </label> -->
         <button type="submit" class="btn-login">Login</button>
       </div>
     </form>
@@ -31,7 +27,7 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 // import ManagementUsers from "./ManagementUsers.vue";
 export default {
   name: "LoginForm",
@@ -46,19 +42,23 @@ export default {
       return this.$store.getters.auth;
     },
     // ...mapState({username: state =>state.username, password: state =>state.password}),
-    // ...mapGetters([ "username", "password"]),
+    ...mapGetters(["usernameAcc", "passwordAcc"]),
   },
   methods: {
     // ...mapActions(["login"]),
     handleLogin(e) {
       e.preventDefault();
       console.log(this.username);
+      console.log(this.usernameAcc);
       if (this.username != "" && this.password != "") {
-        if (this.username == "hanguyen" && this.password == "123") {
+        if (
+          this.username == this.usernameAcc &&
+          this.password == this.passwordAcc
+        ) {
           this.$store.dispatch("login");
           //   return <ManagementUsers />;
         } else {
-          console.log("Login is unsuccessful");
+          alert("Login is unsuccessful");
         }
       } else {
         console.log();

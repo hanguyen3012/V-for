@@ -59,6 +59,7 @@
 
 <script>
 import AddNewUser from "./AddNewUser.vue";
+import { mapGetters } from "vuex";
 import EditUser from "./EditUser.vue";
 export default {
   name: "ManagementUsers",
@@ -84,10 +85,7 @@ export default {
     };
   },
   computed: {
-    auth() {
-      return this.$store.getters.auth;
-    },
-    // ...mapGetters(["authenticated"])
+    ...mapGetters(["auth", "usernameAcc", "passwordAcc"]),
   },
   methods: {
     logout() {
