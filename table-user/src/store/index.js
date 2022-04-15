@@ -3,40 +3,38 @@ import { createStore } from "vuex";
 const store = createStore({
   state: {
     authenticated: false,
-    acc:{
+    accEnter:{
         username: "",
         password: "",
     },
-    account: { usernameAcc: "hanguyen", passwordAcc: "123" },
+    accountUser: { usernameAcc: "hanguyen", passwordAcc: "123" },
   },
   getters: {
     auth(state) {
       return state.authenticated;
     },
     accountUser(state) {
-        // console.log(state.u)
       return {
-        usernameAcc:  state.account.usernameAcc,
-        passwordAcc:  state.account.passwordAcc,
+        usernameAcc:  state.accountUser.usernameAcc,
+        passwordAcc:  state.accountUser.passwordAcc,
       };
     },
     accountEnter(state) {
         return {
-          username:  state.account.username,
-          password:  state.account.password,
+          username:  state.accEnter.username,
+          password:  state.accEnter.password,
         };
       },
-
   },
   mutations: {
     setAuthenticated(state, authenticated) {
       state.authenticated = authenticated;
     },
     setUsername(state, username) {
-      state.username = username;
+      state.accEnter.username = username;
     },
     setPassword(state, password) {
-      state.password = password;
+      state.accEnter.password = password;
     },
   },
   actions: {
