@@ -83,6 +83,14 @@ export default {
       person: {},
     };
   },
+  beforeRouteUpdate(to, from, next) {
+    if (this.auth) {
+      console.log("ha");
+      next({ name: "managements" });
+    } else {
+      next({ name: "login" });
+    }
+  },
 
   computed: {
     ...mapGetters(["auth", "accountUser", "accountEnter"]),

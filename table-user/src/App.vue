@@ -16,6 +16,7 @@ export default {
       this.$router.push({ name: "login" });
     }
   },
+
   computed: {
     auth() {
       return this.$store.getters.auth;

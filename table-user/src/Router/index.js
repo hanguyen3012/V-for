@@ -2,27 +2,30 @@ import { createWebHistory, createRouter } from "vue-router";
 import LoginForm from "../components/LoginForm";
 import ManagementUsers from "../components/ManagementUsers";
 import store from "../store/index";
+import NotFound from "../components/NotFound"
 
 const routes = [
   {
     path: "/",
     name: "login",
     component: LoginForm,
-    meta: { requiresAuth: true },
   },
   {
     path: "/managements",
     name: "managements",
     component: ManagementUsers,
-    meta: { requiresAuth: false },
     beforeEnter: (to, from, next) => {
-        console.log('Action route guards!')
-        next()
-    }
+      console.log("Action route guards!");
+      next();
+    },
   },
-  {
-    path: "/:pathMatch(.*)*",
-    redirect: "/",
+//   {
+//     path: "/:pathMatch(.*)*",
+//     redirect: "/",
+//   },
+{
+    path: "/:catchAll(.*)",
+    component: NotFound,
   },
 ];
 
@@ -33,10 +36,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const { auth } = store.getters;
   next();
-  if (to.name !== "login" && !auth && to.meta.requiresAuth) {
-    return next({ path: "/" });
+  if (to.name !== "login" && !auth) {
+    next({ name: "login" });
+  } else if (to.name === "login" && auth) {
+    next({ path: "/managements" });
   } else {
-    return next();
+    next();
   }
 });
 export default router;
