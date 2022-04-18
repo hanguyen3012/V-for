@@ -34,12 +34,22 @@ export default {
   name: "LoginForm",
 
   computed: {
-    ...mapGetters(["auth", "accountUser", "accountEnter"]),
+    auth() {
+      return this.$store.getters.auth;
+    },
+    ...mapGetters(["accountUser", "accountEnter"]),
   },
 
   methods: {
+    beforeCreate() {
+      console.log(this.auth);
+      if (this.auth) {
+        this.$router.push("/managements");
+      }
+    },
     handleLogin(e) {
       e.preventDefault();
+      console.log(this.auth);
       if (
         !this.accountEnter.username === false &&
         !this.accountEnter.password === false

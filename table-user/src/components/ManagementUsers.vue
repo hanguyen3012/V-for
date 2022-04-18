@@ -151,7 +151,7 @@ export default {
   border-radius: 3px;
   color: white;
   margin-top: -300px;
-  margin-left: 400px;
+  margin-left: 500px;
 }
 .logout:hover {
   background-color: rgb(202, 198, 189);

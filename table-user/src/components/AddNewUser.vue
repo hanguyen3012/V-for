@@ -116,9 +116,6 @@ export default {
       },
     };
   },
-  created() {
-    console.log("", this.v$);
-  },
   methods: {
     async addNewUser() {
       await this.v$.$touch();
