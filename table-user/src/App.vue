@@ -9,13 +9,13 @@
 <script>
 export default {
   name: "App",
-  // beforeCreate() {
-  //   if (this.auth) {
-  //     this.$router.push({ name: "managements" });
-  //   } else {
-  //     this.$router.push({ name: "login" });
-  //   }
-  // },
+  beforeCreate() {
+    if (this.auth) {
+      this.$router.push({ name: "managements" });
+    } else {
+      this.$router.push({ name: "login" });
+    }
+  },
 
   computed: {
     auth() {
