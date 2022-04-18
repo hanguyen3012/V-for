@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <div v-if="!auth">
-        <h2>Login</h2>
-      </div>
-    </div>
     <div class="col-12 bg-light">
       <router-view />
     </div>
