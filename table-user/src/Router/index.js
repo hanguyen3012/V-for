@@ -8,11 +8,13 @@ const routes = [
     path: "/",
     name: "login",
     component: LoginForm,
+    meta: { requiresAuth: true },
   },
   {
     path: "/managements",
     name: "managements",
     component: ManagementUsers,
+    meta: { requiresAuth: false },
   },
   {
     path: "/:pathMatch(.*)*",
