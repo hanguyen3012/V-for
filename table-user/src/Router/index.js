@@ -15,8 +15,19 @@ const routes = [
     },
 
 ];
+
+
  const router = createRouter ({
      history: createWebHistory(),
      routes,
- });
+ })
+ router.beforeEach ((to, from, next) =>{
+    // if(to.name !== 'login' && !auth){
+    //     next({name: 'login'})
+    // }else{
+    //     next()
+    //     }
+    console.log(`Navigating to: ${to.name}`);
+    next();
+    })
   export default router;

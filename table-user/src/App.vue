@@ -1,23 +1,27 @@
 <template>
   <div id="app">
-    <!-- <button v-if="auth" v-on:click="logout()" class="logout">Logout</button> -->
     <div id="nav">
-      <LoginForm v-if="!auth" />
-      <ManagementUsers v-if="auth" />
+      <div v-if="!auth">
+        <router-link to="/" style="text-decoration: none"
+          ><h2>Login</h2></router-link
+        >
+      </div>
+      <div v-if="auth">
+        <router-link to="/managements" style="text-decoration: none"
+          ><h2>Management Users</h2>
+        </router-link>
+      </div>
+    </div>
+    <div class="col-12 bg-light">
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import ManagementUsers from "./components/ManagementUsers.vue";
-import LoginForm from "./components/LoginForm.vue";
-
 export default {
   name: "App",
-  components: {
-    LoginForm,
-    ManagementUsers,
-  },
+
   computed: {
     auth() {
       return this.$store.getters.auth;

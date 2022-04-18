@@ -1,6 +1,5 @@
 <template>
   <div class="login-form">
-    <h2>Login Form</h2>
     <form @submit.prevent="handleLogin">
       <div class="container-login">
         <label for="uname"><b>Username</b></label>
@@ -41,8 +40,6 @@ export default {
   methods: {
     handleLogin(e) {
       e.preventDefault();
-      console.log(this.accountEnter.username);
-      console.log(this.accountEnter.password);
       if (
         !this.accountEnter.username === false &&
         !this.accountEnter.password === false

@@ -83,6 +83,7 @@ export default {
       person: {},
     };
   },
+
   computed: {
     ...mapGetters(["auth", "accountUser", "accountEnter"]),
   },
@@ -91,10 +92,10 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push({ name: "login" });
     },
-    clickSave(itemSave) {
-      let index = this.users.findIndex((c) => c.id === itemSave.id);
+    clickSave(data) {
+      let index = this.users.findIndex((c) => c.id === data.id);
       if (index >= 0) {
-        this.users.splice(index, 1, itemSave);
+        this.users.splice(index, 1, data);
       } else {
         let max = 0;
         let newId = 0;
@@ -104,9 +105,9 @@ export default {
           }
         }
         newId = max + 1;
-        itemSave.id = newId;
-        console.log(itemSave);
-        this.users.push(itemSave);
+        data.id = newId;
+        console.log(data);
+        this.users.push(data);
       }
       return;
     },
