@@ -90,10 +90,10 @@ export default {
   methods: {
     logout(e) {
       e.preventDefault();
-      console.log(this.auth);
       if (this.auth) {
         this.$store.dispatch("logout");
-        console.log(this.auth);
+        this.$router.push({ name: "login" });
+      }else{
         this.$router.push({ name: "login" });
       }
     },

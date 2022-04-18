@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="col-12 bg-light">
-      <router-view />
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -9,13 +9,13 @@
 <script>
 export default {
   name: "App",
-  beforeCreate() {
-    if (this.auth) {
-      this.$router.push({ name: "managements" });
-    } else {
-      this.$router.push({ name: "login" });
-    }
-  },
+  // beforeCreate() {
+  //   if (this.auth) {
+  //     this.$router.push({ name: "managements" });
+  //   } else {
+  //     this.$router.push({ name: "login" });
+  //   }
+  // },
 
   computed: {
     auth() {

@@ -6,42 +6,39 @@ import NotFound from "../components/NotFound"
 
 const routes = [
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: LoginForm,
   },
   {
-    path: "/",
-    name: "managements",
+    path: '/',
+    name: 'managements',
     component: ManagementUsers,
     beforeEnter: (to, from, next) => {
       console.log("Action route guards!");
       next();
     },
   },
-//   {
-//     path: "/:pathMatch(.*)*",
-//     redirect: "/",
-//   },
-{
-    path: "/:catchAll(.*)",
-    component: NotFound,
-  },
+  {
+      path: '/:catchAll(.*)',
+      name: 'not-found',
+      component: NotFound,
+    },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 router.beforeEach((to, from, next) => {
-  const auth  = store.getters;
-  next();
-  if (to.name !== "login" && !auth) {
-    next({ name: "login" });
-  } else if (to.name === "login" && auth) {
-    next({ name: "managements" });
+  const auth =  store.getters.auth;
+  if(to.name !== 'login' &&  !auth) {
+    return next({name:'login'});
+  } else if (to.name === 'login' && auth ) {
+    return next({name:'managements'});
   } else {
     next();
   }
-});
+})
 export default router;
