@@ -106,7 +106,6 @@ export default {
         }
         newId = max + 1;
         data.id = newId;
-        console.log(data);
         this.users.push(data);
       }
       return;

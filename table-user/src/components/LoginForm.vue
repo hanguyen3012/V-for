@@ -41,15 +41,8 @@ export default {
   },
 
   methods: {
-    beforeCreate() {
-      console.log(this.auth);
-      if (this.auth) {
-        this.$router.push("/managements");
-      }
-    },
     handleLogin(e) {
       e.preventDefault();
-      console.log(this.auth);
       if (
         !this.accountEnter.username === false &&
         !this.accountEnter.password === false

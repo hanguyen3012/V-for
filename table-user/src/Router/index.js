@@ -15,6 +15,10 @@ const routes = [
     name: "managements",
     component: ManagementUsers,
     meta: { requiresAuth: false },
+    beforeEnter: (to, from, next) => {
+        console.log('Action route guards!')
+        next()
+    }
   },
   {
     path: "/:pathMatch(.*)*",

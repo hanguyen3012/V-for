@@ -2,14 +2,7 @@
   <div id="app">
     <div id="nav">
       <div v-if="!auth">
-        <router-link to="/" style="text-decoration: none"
-          ><h2>Login</h2></router-link
-        >
-      </div>
-      <div v-if="auth">
-        <router-link to="/managements" style="text-decoration: none"
-          ><h2>Management Users</h2>
-        </router-link>
+        <h2>Login</h2>
       </div>
     </div>
     <div class="col-12 bg-light">
@@ -23,7 +16,7 @@ export default {
   name: "App",
   beforeCreate() {
     if (this.auth) {
-      this.$router.push("/managements");
+      this.$router.push({ name: "managements" });
     } else {
       this.$router.push({ name: "login" });
     }
