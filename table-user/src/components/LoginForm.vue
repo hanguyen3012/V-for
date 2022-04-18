@@ -41,7 +41,8 @@ export default {
   methods: {
     handleLogin(e) {
       e.preventDefault();
-      console.log(!this.accountEnter.username);
+      console.log(this.accountEnter.username);
+      console.log(this.accountEnter.password);
       if (
         !this.accountEnter.username === false &&
         !this.accountEnter.password === false

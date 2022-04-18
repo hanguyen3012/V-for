@@ -13,10 +13,7 @@ const routes = [
         name: "managements",
         component: ManagementUsers,
     },
-    // {
-    //     path: "*",
-    //     redirect: '/'
-    // }
+
 ];
  const router = createRouter ({
      history: createWebHistory(),
