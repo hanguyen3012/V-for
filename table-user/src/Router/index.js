@@ -6,12 +6,12 @@ import NotFound from "../components/NotFound"
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "login",
     component: LoginForm,
   },
   {
-    path: "/managements",
+    path: "/",
     name: "managements",
     component: ManagementUsers,
     beforeEnter: (to, from, next) => {
@@ -34,12 +34,12 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  const { auth } = store.getters;
+  const auth  = store.getters;
   next();
   if (to.name !== "login" && !auth) {
     next({ name: "login" });
   } else if (to.name === "login" && auth) {
-    next({ path: "/managements" });
+    next({ name: "managements" });
   } else {
     next();
   }

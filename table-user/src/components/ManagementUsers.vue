@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <button type="button" @click="logout()" class="logout">Logout</button>
+      <button type="button" @click="logout" class="logout">Logout</button>
     </div>
     <div v-if="users">
       <button type="button" class="button" @click="showModal = !showModal">
@@ -83,22 +83,19 @@ export default {
       person: {},
     };
   },
-  beforeRouteUpdate(to, from, next) {
-    if (this.auth) {
-      console.log("ha");
-      next({ name: "managements" });
-    } else {
-      next({ name: "login" });
-    }
-  },
 
   computed: {
     ...mapGetters(["auth", "accountUser", "accountEnter"]),
   },
   methods: {
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.push({ name: "login" });
+    logout(e) {
+      e.preventDefault();
+      console.log(this.auth);
+      if (this.auth) {
+        this.$store.dispatch("logout");
+        console.log(this.auth);
+        this.$router.push({ name: "login" });
+      }
     },
     clickSave(data) {
       let index = this.users.findIndex((c) => c.id === data.id);

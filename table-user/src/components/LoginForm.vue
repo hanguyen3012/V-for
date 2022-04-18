@@ -20,7 +20,7 @@
           v-model="accountEnter.password"
           required
         />
-        <button type="submit" class="btn-login" to="./managements">
+        <button type="submit" class="btn-login" :to="{ name: 'managements' }">
           Login
         </button>
       </div>
