@@ -29,7 +29,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const { auth } = store.getters;
   next();
-  if (to.name !== "login" && !auth) {
+  if (to.name !== "login" && !auth && to.meta.requiresAuth) {
     return next({ path: "/" });
   } else {
     return next();
