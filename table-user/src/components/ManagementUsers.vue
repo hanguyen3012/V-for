@@ -93,8 +93,8 @@ export default {
       if (this.auth) {
         this.$store.dispatch("logout");
         this.$router.push({ name: "login" });
-      }else{
-        this.$router.push({ name: "login" });
+      } else {
+        this.$router.push({ name: "not-found" });
       }
     },
     clickSave(data) {
