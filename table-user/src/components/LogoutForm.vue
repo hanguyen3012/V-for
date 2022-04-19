@@ -1,30 +1,32 @@
 <template>
   <div class="container">
     <div class="logout-form">
-      <header>
-        <slot name="header"
-          ><h3>Do you want to logout the application?</h3></slot
-        >
-      </header>
+      <SlotComponent>
+        <template v-slot:header>
+          <h3>Do you want to logout the application?</h3>
+        </template>
+      </SlotComponent>
       <hr />
-      <footer>
-        <slot name="footer">
+      <SlotComponent>
+        <template v-slot:footer>
           <button type="button" class="btn-cancel" @click="$emit('close')">
             Cancel
           </button>
-          <button type="submit" class="btn-ok" @click="logout()">OK</button>
-        </slot>
-      </footer>
+          <button type="button" class="btn-ok" @click="logout">Cancel</button>
+        </template>
+      </SlotComponent>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import SlotComponent from "./SlotComponent.vue";
 export default {
   name: "LogoutForm",
+  components: {
+    SlotComponent,
+  },
   computed: {
-    ...mapGetters(["auth", "accountUser", "accountEnter"]),
     logout() {
       return this.$store.dispatch("logout");
     },
@@ -36,7 +38,6 @@ export default {
 <style>
 .logout-form {
   border-collapse: collapse;
-  /* margin-left: 20%; */
   border: solid rgb(39, 40, 42) 1px;
   text-align: left;
   width: 32%;
@@ -45,11 +46,12 @@ export default {
   overflow: auto;
 }
 header {
-  margin: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   text-align: center;
 }
 footer {
-  margin: 30px;
+  margin: 10px;
   display: flex;
   justify-content: space-around;
 }
