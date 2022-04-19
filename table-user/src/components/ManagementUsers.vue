@@ -94,14 +94,6 @@ export default {
 
   computed: {
     ...mapGetters(["auth", "accountUser", "accountEnter"]),
-    // logout() {
-    //   if (this.auth) {
-    //     console.log(this.$store.dispatch("logout"));
-    //     return this.$store.dispatch("logout");
-    //   } else {
-    //     return this.auth;
-    //   }
-    // },
   },
   methods: {
     logout() {
