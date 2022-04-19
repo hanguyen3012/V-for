@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
   const auth = store.getters.auth;
   if (to.name !== "login" && !auth) {
     return next({ name: "login" });
-  } else if (to.name !== "managements" && auth) {
+  } else if (to.name === "login" && auth) {
     return next({ name: "managements" });
   } else {
     next();
