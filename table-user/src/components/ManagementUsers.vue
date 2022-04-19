@@ -38,6 +38,11 @@
           </tr>
         </tbody>
       </table>
+      <LogoutForm
+        v-if="showModalLogout"
+        v-show="showModalLogout"
+        @close="closeModalLogout"
+      />
       <EditUser
         :itemEdit="person"
         v-if="showModalEdit"
@@ -57,6 +62,7 @@
 </template>
 
 <script>
+import LogoutForm from "./LogoutForm.vue";
 import AddNewUser from "./AddNewUser.vue";
 import { mapGetters } from "vuex";
 import EditUser from "./EditUser.vue";
@@ -65,11 +71,13 @@ export default {
   components: {
     AddNewUser,
     EditUser,
+    LogoutForm,
   },
   data() {
     return {
       showModalEdit: false,
       showModal: false,
+      showModalLogout: false,
       users: [
         {
           id: 1,
@@ -86,13 +94,19 @@ export default {
 
   computed: {
     ...mapGetters(["auth", "accountUser", "accountEnter"]),
+    // logout() {
+    //   if (this.auth) {
+    //     console.log(this.$store.dispatch("logout"));
+    //     return this.$store.dispatch("logout");
+    //   } else {
+    //     return this.auth;
+    //   }
+    // },
   },
   methods: {
-    logout(e) {
-      e.preventDefault();
+    logout() {
       if (this.auth) {
-        this.$store.dispatch("logout");
-        this.$router.push({ name: "login" });
+        this.showModalLogout = true;
       } else {
         this.$router.push({ name: "not-found" });
       }
@@ -120,6 +134,9 @@ export default {
     },
     closeModalEdit() {
       this.showModalEdit = false;
+    },
+    closeModalLogout() {
+      this.showModalLogout = false;
     },
     clickDelete(itemDelete) {
       for (let i = 0; i < this.users.length; i++) {

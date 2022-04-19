@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import router from "@/Router";
 
 const store = createStore({
   state: {
@@ -42,6 +43,8 @@ const store = createStore({
       commit("setAuthenticated", false);
       commit("setUsername", null);
       commit("setPassword", null);
+     return router.push({ name: "login" });
+      
     },
     login({ commit }) {
       commit("setAuthenticated", true);
