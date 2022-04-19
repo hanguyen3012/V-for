@@ -35,10 +35,7 @@ export default {
   name: "LoginForm",
 
   computed: {
-    auth() {
-      return this.$store.getters.auth;
-    },
-    ...mapGetters(["accountUser", "accountEnter"]),
+    ...mapGetters(["auth", "accountUser", "accountEnter"]),
   },
 
   methods: {
@@ -61,9 +58,6 @@ export default {
         alert("A username and password must be present");
       }
     },
-  },
-  logout() {
-    this.$store.dispatch("logout");
   },
 };
 </script>

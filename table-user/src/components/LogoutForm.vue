@@ -12,7 +12,7 @@
           <button type="button" class="btn-cancel" @click="$emit('close')">
             Cancel
           </button>
-          <button type="button" class="btn-ok" @click="logout">OK</button>
+          <button type="button" class="btn-ok" @click="logout()">OK</button>
         </template>
       </SlotComponent>
     </div>
@@ -26,7 +26,7 @@ export default {
   components: {
     SlotComponent,
   },
-  computed: {
+  methods: {
     logout() {
       return this.$store.dispatch("logout");
     },
