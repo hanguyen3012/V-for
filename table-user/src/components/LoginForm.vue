@@ -6,6 +6,7 @@
         <label for="uname"><b>Username</b></label>
         <input
           type="text"
+          class="username"
           placeholder="Enter Username"
           name="uname"
           v-model="accountEnter.username"
@@ -15,6 +16,7 @@
         <label for="psw"><b>Password</b></label>
         <input
           type="password"
+          class="password"
           placeholder="Enter Password"
           name="psw"
           v-model="accountEnter.password"
@@ -65,23 +67,23 @@ export default {
 <style>
 .login-form {
   font-family: Arial, Helvetica, sans-serif;
-  width: 40vw;
+  width: 30vw;
   height: 100vh;
   overflow: hidden;
   align-items: center;
-  margin-left: 30%;
-
+  margin-left: 35%;
   margin-right: 30%;
 }
 form {
   border: 3px solid #f1f1f1;
+  background: #7db3cd;
 }
 
-input[type="text"],
-input[type="password"] {
+input[class="username"],
+input[class="password"] {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 15px 0;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;

@@ -157,9 +157,10 @@ h2 {
 
 .form {
   background: #fff;
+  border: none;
 }
 .form-group {
-  margin: 30px;
+  margin: 20px;
 }
 .form-btn {
   margin: 30px;

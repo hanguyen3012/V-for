@@ -41,7 +41,7 @@ export default {
   text-align: left;
   width: 32%;
   height: 250px;
-  background-color: rgb(234, 219, 180);
+  background-color: rgb(182, 229, 243);
   overflow: auto;
 }
 header {

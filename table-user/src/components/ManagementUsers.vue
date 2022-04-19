@@ -157,9 +157,7 @@ export default {
 .logout {
   position: absolute;
   background-color: rgb(31, 78, 186);
-
   width: 100px;
-
   padding: 8px;
   border-radius: 3px;
   color: white;
